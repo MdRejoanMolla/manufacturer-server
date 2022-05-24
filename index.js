@@ -14,6 +14,7 @@ async function run() {
       try {
             await client.connect();
             const toolCollection = client.db('bicycle_hand').collection('tools');
+            const userCollection = client.db('bicycle_hand').collection('users');
 
             app.get('/tools', async (req, res) => {
                   const query = {};
@@ -26,6 +27,17 @@ async function run() {
                   const query = { _id: ObjectId(id) }
                   const tool = await toolCollection.findOne(query);
                   res.send(tool)
+            })
+            app.put('/user/:id', async (req, res) => {
+                  const email = req.params.email;
+                  const user = req.body;
+                  const filter = { email: email };
+                  const options = { upsert: true };
+                  const updateDoc = {
+                        $set: user,
+                  };
+                  const result = await userCollection.updateOne(filter, updateDoc, options);
+                  res.send(result)
             })
 
 
