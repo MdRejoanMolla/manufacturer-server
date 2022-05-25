@@ -15,12 +15,24 @@ async function run() {
             await client.connect();
             const toolCollection = client.db('bicycle_hand').collection('tools');
             const userCollection = client.db('bicycle_hand').collection('users');
+            const reviewCollection = client.db('bicycle_hand').collection('reviews');
 
             app.get('/tools', async (req, res) => {
                   const query = {};
                   const cursor = toolCollection.find(query);
                   const tools = await cursor.toArray();
                   res.send(tools);
+            })
+            app.get('/addReview', async (req, res) => {
+                  const query = {};
+                  const cursor = reviewCollection.find(query);
+                  const reviews = await cursor.toArray();
+                  res.send(reviews);
+            })
+            app.post('/addReview', async (req, res) => {
+                  const newItem = req.body;
+                  const result = await reviewCollection.insertOne(newItem);
+                  res.send(result);
             })
             app.get('/tools/:id', async (req, res) => {
                   const id = req.params.id;
