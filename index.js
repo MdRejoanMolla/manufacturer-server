@@ -87,6 +87,11 @@ async function run() {
                   const result = await reviewCollection.insertOne(newItem);
                   res.send(result);
             })
+            app.post('/addProduct', async (req, res) => {
+                  const newItem = req.body;
+                  const result = await toolCollection.insertOne(newItem);
+                  res.send(result);
+            })
             app.get('/tools/:id', async (req, res) => {
                   const id = req.params.id;
                   const query = { _id: ObjectId(id) }
