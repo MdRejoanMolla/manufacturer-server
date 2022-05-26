@@ -158,6 +158,9 @@ run().catch(console.dir);
 app.get('/', (req, res) => {
       res.send('Hello Bicycle hand!')
 })
+app.get('/', (req, res) => {
+      res.send(' wowowo')
+})
 
 app.listen(port, () => {
       console.log(`bicycle app listening on port ${port}`)
