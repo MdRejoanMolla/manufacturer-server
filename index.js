@@ -45,6 +45,8 @@ async function run() {
                   res.send(tools);
             })
 
+
+
             app.get('/user', verifyJWT, async (req, res) => {
                   const users = await userCollection.find().toArray();
                   res.send(users);
@@ -107,6 +109,16 @@ async function run() {
                   const result = await toolCollection.insertOne(newItem);
                   res.send(result);
             })
+
+            app.get('/addProduct/:id', async (req, res) => {
+                  const id = req.params._id;
+                  const query = { _id: ObjectId(id) };
+                  const result = await toolCollection.findOne(query);
+                  res.send(result);
+            })
+
+
+
             app.get('/tools/:id', async (req, res) => {
                   const id = req.params.id;
                   const query = { _id: ObjectId(id) }
