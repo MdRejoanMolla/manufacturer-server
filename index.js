@@ -94,6 +94,15 @@ async function run() {
                   const result = await cursor.toArray();
                   res.send(result);
             })
+
+            app.get('/information/:email', async (req, res) => {
+                  const email = req.params.email;
+                  const options = { upsert: true };
+                  const user = await infoCollection.findOne({ email: email }, options);
+
+                  res.send(user)
+            })
+
             app.post('/addReview', async (req, res) => {
                   const newItem = req.body;
                   const result = await reviewCollection.insertOne(newItem);
