@@ -34,6 +34,10 @@ async function run() {
             const userCollection = client.db('bicycle_hand').collection('users');
             const reviewCollection = client.db('bicycle_hand').collection('reviews');
 
+            const infoCollection = client.db('bicycle_hand').collection('information');
+
+
+
             app.get('/tools', async (req, res) => {
                   const query = {};
                   const cursor = toolCollection.find(query);
@@ -72,7 +76,7 @@ async function run() {
             app.get('/admin/:email', async (req, res) => {
                   const email = req.params.email;
                   const user = await userCollection.findOne({ email: email });
-                  const isAdmin = user.role === 'admin';
+                  const isAdmin = user?.role === 'admin';
                   res.send({ admin: isAdmin })
             })
 
@@ -85,6 +89,11 @@ async function run() {
             app.post('/addReview', async (req, res) => {
                   const newItem = req.body;
                   const result = await reviewCollection.insertOne(newItem);
+                  res.send(result);
+            })
+            app.post('/information', async (req, res) => {
+                  const newItem = req.body;
+                  const result = await infoCollection.insertOne(newItem);
                   res.send(result);
             })
             app.post('/addProduct', async (req, res) => {
