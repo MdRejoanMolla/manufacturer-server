@@ -155,10 +155,10 @@ async function run() {
 }
 run().catch(console.dir);
 
-// app.get('/', (req, res) => {
-//       res.send('Hello Bicycle hand!')
-// })
 app.get('/', (req, res) => {
+      res.send('Hello Bicycle hand!')
+})
+app.get('/w', (req, res) => {
       res.send(' wowowo')
 })
 
